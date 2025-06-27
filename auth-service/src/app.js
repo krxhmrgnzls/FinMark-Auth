@@ -1,49 +1,100 @@
-const express = require('express');
-const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+const http = require('http');
+const url = require('url');
 
-const app = express();
+// Simple in-memory user storage for testing
+let users = [];
+let currentId = 1;
 
-// Initialize database
-require('./config/database');
+function handleRequest(req, res) {
+  // CORS headers
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
+    res.end();
+    return;
+  }
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  const parsedUrl = url.parse(req.url, true);
+  const path = parsedUrl.pathname;
+  
+  console.log(`${req.method} ${path}`);
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
+  // Health check
+  if (path === '/health' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      status: 'OK',
+      service: 'Auth Service',
+      timestamp: new Date().toISOString()
+    }));
+    return;
+  }
+
+  // Registration
+  if (path === '/api/register' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const userData = JSON.parse(body);
+        const newUser = {
+          id: currentId++,
+          email: userData.email,
+          full_name: userData.full_name,
+          password: userData.password // In real app, hash this!
+        };
+        users.push(newUser);
+        
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({
+          message: 'User registered successfully',
+          userId: newUser.id
+        }));
+      } catch (error) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid JSON' }));
+      }
+    });
+    return;
+  }
+
+  // Login
+  if (path === '/api/login' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => { body += chunk; });
+    req.on('end', () => {
+      try {
+        const loginData = JSON.parse(body);
+        const user = users.find(u => u.email === loginData.email && u.password === loginData.password);
+        
+        if (user) {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({
+            token: 'fake-token-for-testing',
+            user: { id: user.id, email: user.email, full_name: user.full_name }
+          }));
+        } else {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid credentials' }));
+        }
+      } catch (error) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Invalid JSON' }));
+      }
+    });
+    return;
+  }
+
+  // 404
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ error: 'Not found' }));
+}
+
+const server = http.createServer(handleRequest);
+
+server.listen(3001, () => {
+  console.log('Auth Service running on port 3001');
 });
-
-app.use('/api/', limiter);
-
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK', 
-    service: 'Auth Service',
-    timestamp: new Date().toISOString()
-  });
-});
-
-// Auth routes
-const authController = require('./controllers/authController');
-app.post('/api/register', authController.register);
-app.post('/api/login', authController.login);
-app.post('/api/logout', authController.logout);
-app.get('/api/verify', authController.verifyToken);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    message: err.message || 'Internal server error',
-    error: process.env.NODE_ENV === 'development' ? err : {}
-  });
-});
-
-module.exports = app;
