@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FinMark Authentication</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinMark<span class="accent">.</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="status.html">API Status</a>
+                <a href="login.html" class="btn btn-outline active">Login</a>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="status.html">API Status</a>
+        <a href="login.html" class="active">Login</a>
+        <a href="register.html">Get Started</a>
+    </div>
+
+    <!-- Login Form -->
+    <div class="auth-container">
+        <div class="auth-content">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="john@example.com"
+                            required
+                            autocomplete="email"
+                        >
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="••••••••"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                        <span class="form-error" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember" name="remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" style="font-size: var(--font-size-sm);">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                        <span id="btnText">Sign In</span>
+                        <span class="spinner hidden" id="btnSpinner"></span>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="register.html">Create one</a></p>
+                </div>
+            </div>
+
+            <div class="auth-info">
+                <h3>Experience the Difference</h3>
+                <div class="performance-comparison">
+                    <div class="comparison-item">
+                        <h4>Legacy System</h4>
+                        <div class="performance-metric">
+                            <span class="metric-label">Login Time</span>
+                            <span class="metric-value old">15 seconds</span>
+                        </div>
+                        <div class="performance-bar old-bar">
+                            <div class="bar-fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-item">
+                        <h4>Microservices</h4>
+                        <div class="performance-metric">
+                            <span class="metric-label">Login Time</span>
+                            <span class="metric-value new">&lt;1 second</span>
+                        </div>
+                        <div class="performance-bar new-bar">
+                            <div class="bar-fill" style="width: 6.67%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-credentials">
+                    <h4>Demo Credentials</h4>
+                    <p>You can use these test credentials or create your own account:</p>
+                    <div class="credential-box">
+                        <p><strong>Email:</strong> demo@finmark.com</p>
+                        <p><strong>Password:</strong> Demo123!</p>
+                    </div>
+                </div>
+                
+                <div class="security-note">
+                    <p>🔒 <strong>Secure Authentication:</strong> Your password is encrypted with bcrypt and never stored in plain text. JWT tokens ensure secure session management.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/login.js"></script>
+</body>
+</html>

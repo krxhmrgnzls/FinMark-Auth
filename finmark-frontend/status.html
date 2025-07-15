@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Status - FinMark Authentication</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/status.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinMark<span class="accent">.</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="status.html" class="active">API Status</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="status.html" class="active">API Status</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Get Started</a>
+    </div>
+
+    <!-- Status Header -->
+    <section class="status-header">
+        <div class="container">
+            <h1>System Status</h1>
+            <p>Real-time monitoring of FinMark microservices</p>
+            <div class="overall-status" id="overallStatus">
+                <span class="status-indicator"></span>
+                <span class="status-text">Checking status...</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Status -->
+    <section class="services-status">
+        <div class="container">
+            <h2>Service Health</h2>
+            <div class="services-grid">
+                <!-- API Gateway -->
+                <div class="service-card" id="gatewayCard">
+                    <div class="service-header">
+                        <h3>API Gateway</h3>
+                        <span class="service-status loading">Checking...</span>
+                    </div>
+                    <div class="service-details">
+                        <div class="detail-row">
+                            <span>URL:</span>
+                            <span>http://localhost:3000</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Response Time:</span>
+                            <span id="gatewayResponseTime">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status Code:</span>
+                            <span id="gatewayStatusCode">-</span>
+                        </div>
+                    </div>
+                    <div class="service-endpoints">
+                        <h4>Endpoints:</h4>
+                        <ul>
+                            <li>/health</li>
+                            <li>/auth/register</li>
+                            <li>/auth/login</li>
+                            <li>/auth/logout</li>
+                            <li>/auth/verify</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Auth Service -->
+                <div class="service-card" id="authCard">
+                    <div class="service-header">
+                        <h3>Authentication Service</h3>
+                        <span class="service-status loading">Checking...</span>
+                    </div>
+                    <div class="service-details">
+                        <div class="detail-row">
+                            <span>URL:</span>
+                            <span>http://localhost:3001</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Response Time:</span>
+                            <span id="authResponseTime">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status Code:</span>
+                            <span id="authStatusCode">-</span>
+                        </div>
+                    </div>
+                    <div class="service-features">
+                        <h4>Features:</h4>
+                        <ul>
+                            <li>✓ JWT Token Generation</li>
+                            <li>✓ Bcrypt Password Hashing</li>
+                            <li>✓ Rate Limiting</li>
+                            <li>✓ Session Management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="service-card" id="databaseCard">
+                    <div class="service-header">
+                        <h3>Database</h3>
+                        <span class="service-status online">Online</span>
+                    </div>
+                    <div class="service-details">
+                        <div class="detail-row">
+                            <span>Type:</span>
+                            <span>SQLite</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Status:</span>
+                            <span>Connected</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Performance:</span>
+                            <span>Optimal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cache -->
+                <div class="service-card" id="cacheCard">
+                    <div class="service-header">
+                        <h3>Cache Layer</h3>
+                        <span class="service-status online">Active</span>
+                    </div>
+                    <div class="service-details">
+                        <div class="detail-row">
+                            <span>Type:</span>
+                            <span>In-Memory (NodeCache)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>Hit Rate:</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>TTL:</span>
+                            <span>10 minutes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+        <div class="container">
+            <h2>Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <h4>Average Response Time</h4>
+                    <div class="metric-value" id="avgResponseTime">-</div>
+                    <div class="metric-chart">
+                        <canvas id="responseTimeChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="metric-box">
+                    <h4>Uptime</h4>
+                    <div class="metric-value">99.9%</div>
+                    <p class="metric-subtitle">Last 30 days</p>
+                </div>
+                
+                <div class="metric-box">
+                    <h4>Total Requests</h4>
+                    <div class="metric-value" id="totalRequests">0</div>
+                    <p class="metric-subtitle">Since page load</p>
+                </div>
+                
+                <div class="metric-box">
+                    <h4>Error Rate</h4>
+                    <div class="metric-value">0.1%</div>
+                    <p class="metric-subtitle">Last 24 hours</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status History -->
+    <section class="history-section">
+        <div class="container">
+            <h2>Status History</h2>
+            <div class="history-timeline" id="historyTimeline">
+                <div class="history-item">
+                    <span class="history-time">Just now</span>
+                    <span class="history-status online">All systems operational</span>
+                </div>
+            </div>
+            <div class="refresh-info">
+                <p>Status refreshes every <span id="refreshInterval">30</span> seconds</p>
+                <button class="btn btn-outline btn-small" onclick="checkAllServices()">Refresh Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details -->
+    <section class="technical-section">
+        <div class="container">
+            <h2>Technical Information</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>Architecture</h3>
+                    <ul>
+                        <li>Microservices Architecture</li>
+                        <li>API Gateway Pattern</li>
+                        <li>JWT Authentication</li>
+                        <li>RESTful API Design</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>Technologies</h3>
+                    <ul>
+                        <li>Node.js + Express</li>
+                        <li>SQLite Database</li>
+                        <li>Bcrypt Encryption</li>
+                        <li>JWT Tokens</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card">
+                    <h3>Security Features</h3>
+                    <ul>
+                        <li>Rate Limiting: 100 req/15min</li>
+                        <li>CORS Enabled</li>
+                        <li>Input Validation</li>
+                        <li>Secure Password Hashing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/status.js"></script>
+</body>
+</html>

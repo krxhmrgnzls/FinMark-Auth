@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - FinMark Authentication</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinMark<span class="accent">.</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="status.html">API Status</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary active">Get Started</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="status.html">API Status</a>
+        <a href="login.html">Login</a>
+        <a href="register.html" class="active">Get Started</a>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="auth-container">
+        <div class="auth-content">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Create Your Account</h2>
+                    <p>Experience modern authentication in action</p>
+                </div>
+
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="fullName" 
+                            name="full_name" 
+                            class="form-input" 
+                            placeholder="John Doe"
+                            required
+                        >
+                        <span class="form-error" id="fullNameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-input" 
+                            placeholder="john@example.com"
+                            required
+                        >
+                        <span class="form-error" id="emailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password" 
+                                class="form-input" 
+                                placeholder="••••••••"
+                                required
+                            >
+                            <button type="button" class="password-toggle" id="passwordToggle">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                        <span class="form-hint">Must be at least 8 characters</span>
+                        <span class="form-error" id="passwordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="password-input-wrapper">
+                            <input 
+                                type="password" 
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                class="form-input" 
+                                placeholder="••••••••"
+                                required
+                            >
+                            <button type="button" class="password-toggle" id="confirmPasswordToggle">
+                                <span class="eye-icon">👁️</span>
+                            </button>
+                        </div>
+                        <span class="form-error" id="confirmPasswordError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="terms" required>
+                            <span>I agree to the <a href="#" onclick="showTerms(event)">Terms of Service</a> and <a href="#" onclick="showPrivacy(event)">Privacy Policy</a></span>
+                        </label>
+                        <span class="form-error" id="termsError"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                        <span id="btnText">Create Account</span>
+                        <span class="spinner hidden" id="btnSpinner"></span>
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Sign in</a></p>
+                </div>
+            </div>
+
+            <div class="auth-info">
+                <h3>Why Choose FinMark?</h3>
+                <div class="info-items">
+                    <div class="info-item">
+                        <span class="info-icon">🚀</span>
+                        <div>
+                            <h4>Lightning Fast</h4>
+                            <p>Sub-second authentication with modern microservices</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🔒</span>
+                        <div>
+                            <h4>Secure by Design</h4>
+                            <p>Military-grade encryption with bcrypt and JWT tokens</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">📈</span>
+                        <div>
+                            <h4>Scalable Architecture</h4>
+                            <p>Handle 200+ concurrent users with ease</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">⚡</span>
+                        <div>
+                            <h4>Real-time Performance</h4>
+                            <p>See live metrics and system health status</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-note">
+                    <p><strong>Demo Note:</strong> This is a demonstration of microservices architecture. Feel free to create a test account!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/register.js"></script>
+</body>
+</html>

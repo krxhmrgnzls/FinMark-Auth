@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinMark Authentication - Microservices Demo</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinMark<span class="accent">.</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="status.html">API Status</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="register.html" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="active">Home</a>
+        <a href="status.html">API Status</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Get Started</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h2 class="hero-title">
+                    Modern Authentication
+                    <span class="gradient-text">Microservices</span>
+                    Architecture
+                </h2>
+                <p class="hero-subtitle">
+                    Experience the power of scalable, secure authentication built with microservices. 
+                    From 15-second legacy delays to sub-second modern performance.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>93%</h3>
+                        <p>Faster Login</p>
+                    </div>
+                    <div class="stat">
+                        <h3>&lt;1s</h3>
+                        <p>Response Time</p>
+                    </div>
+                    <div class="stat">
+                        <h3>99%</h3>
+                        <p>Uptime</p>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="register.html" class="btn btn-primary btn-large">Try It Now</a>
+                    <a href="#architecture" class="btn btn-outline btn-large">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="floating-card">
+                    <div class="card-header">
+                        <span class="status-dot"></span>
+                        <span>Authentication Service</span>
+                    </div>
+                    <div class="card-content">
+                        <div class="metric">
+                            <span class="metric-label">Response Time</span>
+                            <span class="metric-value">0.8s</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Success Rate</span>
+                            <span class="metric-value">99.9%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture">
+        <div class="container">
+            <h2 class="section-title">Microservices Architecture</h2>
+            <p class="section-subtitle">
+                Built for scale, designed for performance
+            </p>
+            
+            <div class="architecture-diagram">
+                <div class="arch-layer client-layer">
+                    <h3>Client Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">
+                            <div class="component-icon">🌐</div>
+                            <span>Web Frontend</span>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">📱</div>
+                            <span>Mobile Apps</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arch-flow-down"></div>
+                
+                <div class="arch-layer gateway-layer">
+                    <h3>API Gateway</h3>
+                    <div class="arch-components">
+                        <div class="arch-component highlight">
+                            <div class="component-icon">🚪</div>
+                            <span>Gateway (Port 3000)</span>
+                            <div class="component-features">
+                                <span>• Rate Limiting</span>
+                                <span>• Request Routing</span>
+                                <span>• CORS Handling</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arch-flow-down"></div>
+                
+                <div class="arch-layer services-layer">
+                    <h3>Microservices</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">
+                            <div class="component-icon">🔐</div>
+                            <span>Auth Service (Port 3001)</span>
+                            <div class="component-features">
+                                <span>• JWT Generation</span>
+                                <span>• Bcrypt Hashing</span>
+                                <span>• Session Management</span>
+                            </div>
+                        </div>
+                        <div class="arch-component future">
+                            <div class="component-icon">👤</div>
+                            <span>User Service</span>
+                            <div class="component-features">
+                                <span>• Profile Management</span>
+                                <span>• User Data</span>
+                            </div>
+                        </div>
+                        <div class="arch-component future">
+                            <div class="component-icon">📊</div>
+                            <span>Analytics Service</span>
+                            <div class="component-features">
+                                <span>• Usage Metrics</span>
+                                <span>• Performance Data</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="arch-flow-down"></div>
+                
+                <div class="arch-layer data-layer">
+                    <h3>Data Layer</h3>
+                    <div class="arch-components">
+                        <div class="arch-component">
+                            <div class="component-icon">💾</div>
+                            <span>SQLite Database</span>
+                        </div>
+                        <div class="arch-component">
+                            <div class="component-icon">⚡</div>
+                            <span>Redis Cache</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Sub-second authentication response times with intelligent caching</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Modern Security</h3>
+                    <p>JWT tokens, bcrypt hashing, and industry-standard security practices</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Highly Scalable</h3>
+                    <p>Microservices architecture allows independent scaling of components</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Rate Limiting</h3>
+                    <p>Built-in protection against brute force and DDoS attacks</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Auto Recovery</h3>
+                    <p>Resilient design with automatic failover and recovery mechanisms</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Real-time Monitoring</h3>
+                    <p>Live health checks and performance metrics for all services</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem/Solution Section -->
+    <section class="problem-solution">
+        <div class="container">
+            <div class="comparison">
+                <div class="comparison-card old-system">
+                    <h3>❌ Legacy System Problems</h3>
+                    <ul>
+                        <li>15-second login delays</li>
+                        <li>MD5 password hashing (insecure)</li>
+                        <li>Monolithic architecture</li>
+                        <li>Limited to 50 concurrent users</li>
+                        <li>75% authentication success rate</li>
+                        <li>Single point of failure</li>
+                    </ul>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="comparison-card new-system">
+                    <h3>✅ Microservices Solution</h3>
+                    <ul>
+                        <li>&lt;1 second response time</li>
+                        <li>Bcrypt encryption (military-grade)</li>
+                        <li>Scalable microservices</li>
+                        <li>200+ concurrent users</li>
+                        <li>99% authentication success rate</li>
+                        <li>Fault-tolerant design</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Experience Modern Authentication?</h2>
+            <p>Join the microservices revolution and see the difference</p>
+            <div class="cta-actions">
+                <a href="register.html" class="btn btn-primary btn-large">Create Account</a>
+                <a href="status.html" class="btn btn-outline btn-large">Check API Status</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 FinMark Authentication Demo. Built with modern microservices architecture.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/navigation.js"></script>
+</body>
+</html>

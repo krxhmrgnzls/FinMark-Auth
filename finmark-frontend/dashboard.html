@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FinMark Authentication</title>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>FinMark<span class="accent">.</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="status.html">API Status</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="#" class="btn btn-danger btn-small" onclick="handleLogout(event)">Logout</a>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="status.html">API Status</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="#" onclick="handleLogout(event)">Logout</a>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-content">
+                <h2>Welcome back, <span id="userName">User</span>!</h2>
+                <p>You're experiencing the power of modern microservices architecture</p>
+            </div>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <h3 id="loginTime">-</h3>
+                    <p>Login Time</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="sessionDuration">0m</h3>
+                    <p>Session Duration</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Active</h3>
+                    <p>Status</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Profile Section -->
+        <section class="profile-section">
+            <div class="section-header">
+                <h3>Your Profile</h3>
+                <button class="btn btn-outline btn-small">Edit Profile</button>
+            </div>
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <span id="userInitial">U</span>
+                </div>
+                <div class="profile-info">
+                    <div class="info-group">
+                        <label>Full Name</label>
+                        <p id="userFullName">Loading...</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Email Address</label>
+                        <p id="userEmail">Loading...</p>
+                    </div>
+                    <div class="info-group">
+                        <label>User ID</label>
+                        <p id="userId">Loading...</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Member Since</label>
+                        <p id="memberSince">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Session Information -->
+        <section class="session-section">
+            <div class="section-header">
+                <h3>Session Information</h3>
+                <span class="session-status active">Active Session</span>
+            </div>
+            <div class="session-card">
+                <div class="session-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Login Time</span>
+                        <span class="detail-value" id="loginTimestamp">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Session Type</span>
+                        <span class="detail-value">JWT Token</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Security Level</span>
+                        <span class="detail-value">🔒 Secure (Bcrypt + JWT)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Token Expiry</span>
+                        <span class="detail-value" id="tokenExpiry">24 hours</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Metrics -->
+        <section class="metrics-section">
+            <h3>Performance Metrics</h3>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h4>Authentication Speed</h4>
+                        <span class="metric-badge success">Optimal</span>
+                    </div>
+                    <div class="metric-content">
+                        <div class="big-number" id="authSpeed">0.8s</div>
+                        <p>93% faster than legacy system</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 93%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h4>System Health</h4>
+                        <span class="metric-badge success">Excellent</span>
+                    </div>
+                    <div class="metric-content">
+                        <div class="big-number">99.9%</div>
+                        <p>Uptime in the last 30 days</p>
+                        <div class="health-indicators">
+                            <span class="indicator active">API Gateway</span>
+                            <span class="indicator active">Auth Service</span>
+                            <span class="indicator active">Database</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <h4>Security Score</h4>
+                        <span class="metric-badge success">High</span>
+                    </div>
+                    <div class="metric-content">
+                        <div class="big-number">A+</div>
+                        <p>Modern security standards</p>
+                        <ul class="security-features">
+                            <li>✓ Bcrypt password hashing</li>
+                            <li>✓ JWT token authentication</li>
+                            <li>✓ Rate limiting enabled</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity Log -->
+        <section class="activity-section">
+            <h3>Recent Activity</h3>
+            <div class="activity-card">
+                <div class="activity-list" id="activityList">
+                    <div class="activity-item">
+                        <span class="activity-icon">🔐</span>
+                        <div class="activity-details">
+                            <p>Logged in successfully</p>
+                            <span class="activity-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Info -->
+        <section class="developer-section">
+            <h3>For Developers</h3>
+            <div class="developer-card">
+                <h4>API Endpoints Used</h4>
+                <div class="code-block">
+                    <pre><code>POST /auth/login     - User authentication
+GET  /auth/verify    - Token verification
+POST /auth/logout    - Session termination</code></pre>
+                </div>
+                
+                <h4>Your JWT Token (Preview)</h4>
+                <div class="code-block">
+                    <pre><code id="tokenPreview">Loading...</code></pre>
+                </div>
+                
+                <div class="developer-links">
+                    <a href="https://github.com/yourusername/finmark-auth" target="_blank" class="btn btn-outline">
+                        View Source Code
+                    </a>
+                    <a href="/api-docs" class="btn btn-outline">
+                        API Documentation
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/dashboard.js"></script>
+</body>
+</html>
