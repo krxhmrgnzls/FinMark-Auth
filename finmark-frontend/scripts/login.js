@@ -1,5 +1,3 @@
-// Login Script - scripts/login.js
-
 document.addEventListener('DOMContentLoaded', function() {
     // Redirect if already authenticated
     authService.redirectIfAuthenticated();

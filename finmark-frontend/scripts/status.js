@@ -1,6 +1,3 @@
-// Status Script - scripts/status.js
-
-// Service configurations
 const services = [
     {
         name: 'API Gateway',

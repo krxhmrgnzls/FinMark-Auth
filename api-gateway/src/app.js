@@ -58,5 +58,5 @@ function handleRequest(req, res) {
 const server = http.createServer(handleRequest);
 
 server.listen(3000, () => {
-  console.log('🚀 API Gateway running on port 3000');
+  console.log('API Gateway running on port 3000');
 });

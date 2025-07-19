@@ -1,9 +1,5 @@
-// Authentication Script - scripts/auth.js
-
-// API configuration
 const API_BASE_URL = 'http://localhost:3000';
 
-// Common authentication functions
 class AuthService {
     constructor() {
         this.baseUrl = API_BASE_URL;

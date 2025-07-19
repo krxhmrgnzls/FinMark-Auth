@@ -34,7 +34,7 @@ function handleRequest(req, res) {
 if (path.startsWith('/auth/')) {
   const authPath = path.replace('/auth', '/api');
   
-  console.log(`📤 Forwarding to: http://localhost:3001${authPath}`);
+  console.log(`Forwarding to: http://localhost:3001${authPath}`);
   
   const options = {
     hostname: 'localhost',
@@ -50,7 +50,7 @@ if (path.startsWith('/auth/')) {
   });
 
   authReq.on('error', (err) => {
-    console.error('❌ Auth service error:', err);
+    console.error('Auth service error:', err);
     res.writeHead(503, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ error: 'Auth service unavailable' }));
   });
@@ -66,6 +66,6 @@ if (path.startsWith('/auth/')) {
 const server = http.createServer(handleRequest);
 
 server.listen(3000, () => {
-  console.log('🚀 API Gateway running on port 3000');
-  console.log('📍 Forwarding /auth/* to http://localhost:3001');
+  console.log('API Gateway running on port 3000');
+  console.log('Forwarding /auth/* to http://localhost:3001');
 });

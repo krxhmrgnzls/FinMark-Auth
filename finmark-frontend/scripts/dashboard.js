@@ -1,5 +1,3 @@
-// Dashboard Script - scripts/dashboard.js
-
 document.addEventListener('DOMContentLoaded', function() {
     // Require authentication
     authService.requireAuth();

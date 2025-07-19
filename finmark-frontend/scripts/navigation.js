@@ -1,5 +1,3 @@
-// Navigation Script - scripts/navigation.js
-
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const navToggle = document.getElementById('navToggle');

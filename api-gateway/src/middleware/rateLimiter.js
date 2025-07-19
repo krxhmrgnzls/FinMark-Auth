@@ -22,7 +22,7 @@ const authMiddleware = async (req, res, next) => {
     const cached = tokenCache.get(token);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       req.user = cached.user;
-      console.log(`✅ Token validated from cache for user: ${req.user.email}`);
+      console.log(`Token validated from cache for user: ${req.user.email}`);
       return next();
     }
 
@@ -30,9 +30,9 @@ const authMiddleware = async (req, res, next) => {
     let decoded;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET || 'default-secret-key');
-      console.log(`🔓 Token verified for user: ${decoded.email}`);
+      console.log(`Token verified for user: ${decoded.email}`);
     } catch (jwtError) {
-      console.log(`❌ Invalid token attempt: ${jwtError.message}`);
+      console.log(`Invalid token attempt: ${jwtError.message}`);
       return res.status(401).json({ 
         error: 'Invalid token', 
         message: 'The provided token is invalid or expired. Please login again.' 
@@ -50,7 +50,7 @@ const authMiddleware = async (req, res, next) => {
     next();
 
   } catch (error) {
-    console.error('🚨 Auth middleware error:', error);
+    console.error('Auth middleware error:', error);
     res.status(500).json({ 
       error: 'Authentication error',
       message: 'An error occurred while processing your authentication'

@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
   try {
     const { email, password, full_name } = req.body;
 
-    console.log('📝 Registration attempt for:', email);
+    console.log('Registration attempt for:', email);
 
     // Validate input
     if (!email || !password || !full_name) {
@@ -34,15 +34,14 @@ exports.register = async (req, res) => {
     // Check if user exists
     const existingUser = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
     if (existingUser) {
-      console.log('⚠️ User already exists:', email);
+      console.log('User already exists:', email);
       return res.status(400).json({ error: 'User already exists' });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log('🔐 Password hashed successfully');
+    console.log('Password hashed successfully');
 
-    // Insert user with transaction for data integrity
     const insertUser = db.transaction(() => {
       const insert = db.prepare(
         'INSERT INTO users (email, password, full_name) VALUES (?, ?, ?)'
@@ -50,14 +49,14 @@ exports.register = async (req, res) => {
       
       const result = insert.run(email, hashedPassword, full_name);
       
-      // Verify the user was actually inserted
+  
       const newUser = db.prepare('SELECT * FROM users WHERE id = ?').get(result.lastInsertRowid);
       
       if (!newUser) {
         throw new Error('User creation failed - could not retrieve new user');
       }
       
-      console.log('✅ User created in database:', {
+      console.log('User created in database:', {
         id: newUser.id,
         email: newUser.email,
         full_name: newUser.full_name
@@ -67,8 +66,7 @@ exports.register = async (req, res) => {
     });
 
     const newUser = insertUser();
-    
-    // Force database sync to disk
+
     db.pragma('wal_checkpoint(RESTART)');
     
     res.status(201).json({
@@ -81,9 +79,8 @@ exports.register = async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('❌ Registration error:', error);
+    console.error('Registration error:', error);
     
-    // Check for specific SQLite errors
     if (error.code === 'SQLITE_CONSTRAINT_UNIQUE') {
       return res.status(400).json({ error: 'Email already registered' });
     }
@@ -101,7 +98,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
     const startTime = Date.now();
 
-    console.log('🔑 Login attempt for:', email);
+    console.log(' Login attempt for:', email);
 
     // Validate input
     if (!email || !password) {
@@ -116,7 +113,7 @@ exports.login = async (req, res) => {
     if (cachedUser && await bcrypt.compare(password, cachedUser.password)) {
       const token = generateToken(cachedUser);
       
-      console.log(`✅ Login completed in ${Date.now() - startTime}ms (cached)`);
+      console.log(`Login completed in ${Date.now() - startTime}ms (cached)`);
       
       return res.json({
         token,
@@ -134,24 +131,20 @@ exports.login = async (req, res) => {
     const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
     
     if (!user) {
-      console.log('⚠️ User not found:', email);
+      console.log('User not found:', email);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     // Verify password
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      console.log('⚠️ Invalid password for user:', email);
+      console.log('Invalid password for user:', email);
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Cache the user for future requests
     cache.set(email, user);
 
-    // Generate token
     const token = generateToken(user);
-
-    // Store session with transaction
     const createSession = db.transaction(() => {
       const insertSession = db.prepare(
         'INSERT INTO sessions (user_id, token, expires_at) VALUES (?, ?, ?)'
@@ -162,7 +155,7 @@ exports.login = async (req, res) => {
 
     createSession();
 
-    console.log(`✅ Login completed in ${Date.now() - startTime}ms`);
+    console.log(`Login completed in ${Date.now() - startTime}ms`);
 
     res.json({
       token,
@@ -176,7 +169,7 @@ exports.login = async (req, res) => {
       cached: false
     });
   } catch (error) {
-    console.error('❌ Login error:', error);
+    console.error('Login error:', error);
     res.status(500).json({ 
       error: 'Login failed',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
@@ -184,23 +177,19 @@ exports.login = async (req, res) => {
   }
 };
 
-// Logout user
 exports.logout = async (req, res) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
     
     if (token) {
-      // Remove session from database
       const result = db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
       console.log(`🚪 Logout: Removed ${result.changes} session(s)`);
       
-      // Optional: Clear user from cache if we stored by token
-      // cache.del(userEmail);
     }
 
     res.json({ message: 'Logged out successfully' });
   } catch (error) {
-    console.error('❌ Logout error:', error);
+    console.error('Logout error:', error);
     res.status(500).json({ error: 'Logout failed' });
   }
 };
@@ -217,7 +206,6 @@ exports.verifyToken = async (req, res) => {
     // Verify JWT
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default-secret-key');
     
-    // Optional: Check if session still exists in database
     const session = db.prepare('SELECT * FROM sessions WHERE token = ? AND expires_at > datetime("now")').get(token);
     
     if (!session) {
@@ -230,12 +218,11 @@ exports.verifyToken = async (req, res) => {
       sessionActive: !!session
     });
   } catch (error) {
-    console.error('❌ Token verification error:', error);
+    console.error('Token verification error:', error);
     res.status(401).json({ error: 'Invalid token' });
   }
 };
 
-// Helper function to get all users (for debugging)
 exports.getAllUsers = async (req, res) => {
   try {
     const users = db.prepare('SELECT id, email, full_name, role, created_at FROM users').all();
@@ -244,7 +231,7 @@ exports.getAllUsers = async (req, res) => {
       users: users
     });
   } catch (error) {
-    console.error('❌ Error fetching users:', error);
+    console.error(' Error fetching users:', error);
     res.status(500).json({ error: 'Failed to fetch users' });
   }
 };

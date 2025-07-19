@@ -8,7 +8,7 @@ const serviceConfig = {
     status: 'unknown',
     lastCheck: null
   },
-  // Future services can be added here
+
   financial: {
     url: process.env.FINANCIAL_SERVICE_URL || 'http://localhost:3002',
     prefix: '/financial',
